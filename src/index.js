@@ -8,13 +8,13 @@ import path from 'path';
 import fs from 'fs';
 import { PROJECTS_DIR } from './constants.js';
 
-// Initialize hooks
+
 const { generateProject } = useAI(process.env.GEMINI_API_KEY);
 const { getUniqueFolderName, cleanupProject } = useFiles();
 const { getAvailablePort, killPortProcess } = usePorts();
 const { execute } = useCommands();
 
-// Main functions
+
 async function setupProject(project) {
   // Ensure unique folder name
   project.folderName = getUniqueFolderName(project.folderName);
@@ -99,7 +99,7 @@ async function mainMenu() {
 
 async function handleCleanup() {
   // When listing projects for cleanup (in handleCleanup function):
-  const projects = fs.readdirSync(PROJECTS_DIR, { withFileTypes: true })  // Changed to PROJECTS_DIR
+  const projects = fs.readdirSync(PROJECTS_DIR, { withFileTypes: true })  
   .filter(dirent => dirent.isDirectory())
   .map(dirent => dirent.name);
 
@@ -240,7 +240,7 @@ async function main() {
   console.log("\n👋 Thank you for using the AI Project Generator!");
 }
 
-// Start the application
+
 main().catch(err => {
   console.error('Fatal error:', err);
   process.exit(1);

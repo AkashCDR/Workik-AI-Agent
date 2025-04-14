@@ -29,17 +29,17 @@ export const useAI = (apiKey) => {
     
     try {
       const result = await model.generateContent({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        contents: [{ role: "user", parts: [{ text: prompt }] }],  // here role user means the prompt treated as user given
         generationConfig: { 
-          response_mime_type: "application/json",
-          temperature: 0.3
+          response_mime_type: "application/json",    // this force gemini to return JSON
+          temperature: 0.3            
         }
       });
       
       const response = await result.response;
       const text = response.text();
       const cleanJson = text.replace(/```json|```/g, '').trim();
-      return projectSchema.parse(JSON.parse(cleanJson));
+      return projectSchema.parse(JSON.parse(cleanJson));  // first string to object and then validate our required structure by projectSchema
     } catch (err) {
       throw new Error(`AI Error: ${err.message}`);
     }
